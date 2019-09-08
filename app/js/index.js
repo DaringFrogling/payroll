@@ -18,20 +18,43 @@ function searchByName() {
     }
 }
 
-/*
+$(document).on('click', '#delete-row', function () {
+    let id = $(this).data('id');
+    let href = $('*[data-id="' + id + '"]');
+
+    console.log(href);
+
+    if (confirm('Are you sure you want to remove this record?')) {
+        $.ajax({
+            url: "/",
+            method: "POST",
+            dataType: "json",
+            data: {id: id, action: 'delete-row'},
+            success: function (response) {
+                    //этот tr как-раз не убирается.
+                    href.closest("tr").remove();
+            }
+        });
+    } else {
+        return false;
+    }
+});
+
 function sortTable(tableid, n) {
     let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
 
-    table = document.getElementById(tableid)[0];
+    table = document.getElementById(tableid);
+    console.log(table);
     switching = true;
     dir = "asc";
     while (switching) {
         switching = false;
-        rows = table.getElementsByTagName("TR");
+        rows = table.getElementsByTagName("tr");
+        console.log(rows);
         for (i = 1; i < (rows.length - 1); i++) {
             shouldSwitch = false;
-            x = rows[i].getElementsByTagName("TD")[n];
-            y = rows[i + 1].getElementsByTagName("TD")[n];
+            x = rows[i].getElementsByTagName("td")[n];
+            y = rows[i + 1].getElementsByTagName("td")[n];
             if (dir == "asc") {
                 if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
                     shouldSwitch = true;
@@ -56,4 +79,3 @@ function sortTable(tableid, n) {
         }
     }
 }
-sortTable('main-table', 5);*/

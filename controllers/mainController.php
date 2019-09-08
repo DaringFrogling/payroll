@@ -1,16 +1,24 @@
 <?php
 
 include_once ROOT . '/models/Records.php';
-include_once ROOT . '/models/Upload.php';
+include_once ROOT . '/models/Actions.php';
+include_once ROOT . '/models/Validations.php';
 
 class mainController
 {
     public function actionIndex()
     {
-        $recordsList = array();
         $recordsList = Records::getRecordsList();
 
-        require_once(ROOT . '/views/index.php');
+        if (isset($_POST['action']) && $_POST['action'] === 'delete-row') {
+            $id = $_POST['id'];
+
+            Actions::DeleteRecord($id);
+
+            return true;
+        }
+
+        require_once(ROOT . '/app/views/index.php');
 
         return true;
     }
@@ -31,32 +39,31 @@ class mainController
 
             $errors = false;
 
-            if (!Upload::CheckName($employee)) {
+            if (!Validations::CheckName($employee)) {
                 $errors[] = 'Необходимо задать имя и фамилию!';
             }
 
-            if (!Upload::CountEmployees($department)) {
+            if (!Validations::CountEmployees($department)) {
                 $errors[] = 'В этом отделе уже заняты все рабочие места!';
             }
 
-            if (!Upload::IsSelected($department)) {
+            if (!Validations::IsSelected($department)) {
                 $errors[] = 'Необходимо выбрать категорию!';
             }
 
             if ($errors == false) {
-                $result = Upload::AddRecord($employee, $department, $amount, $salary);
+                $result = Actions::AddRecord($employee, $department, $amount, $salary);
             }
 
         }
 
-        require_once(ROOT . '/views/add.php');
+        require_once(ROOT . '/app/views/add.php');
 
         return true;
     }
 
     public function actionEdit($id)
     {
-        $singleRecord = array();
         $singleRecord = Records::getRowById($id);
 
         $id = '';
@@ -75,26 +82,26 @@ class mainController
 
             $errors = false;
 
-            if (!Upload::CheckName($employee)) {
+            if (!Validations::CheckName($employee)) {
                 $errors[] = 'Необходимо задать имя и фамилию!';
             }
 
-            if (!Upload::CountEmployees($department)) {
+            if (!Validations::CountEmployees($department)) {
                 $errors[] = 'В этом отделе уже заняты все рабочие места!';
             }
 
-            if (!Upload::IsSelected($department)) {
+            if (!Validations::IsSelected($department)) {
                 $errors[] = 'Необходимо выбрать категорию!';
             }
 
             if ($errors == false) {
-                $result = Upload::UpdateRecord($id, $employee, $department, $amount, $salary);
+                $result = Actions::UpdateRecord($id, $employee, $department, $amount, $salary);
             }
 
 
         }
 
-        require_once(ROOT . '/views/edit.php');
+        require_once(ROOT . '/app/views/edit.php');
 
         return true;
 

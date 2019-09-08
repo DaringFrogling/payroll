@@ -44,5 +44,5 @@ $(function () {
 });
 
 $(function () {
-    $("div.alert-success").delay(4000).hide();
+    $("div.alert-success").delay(1500).hide();
 });

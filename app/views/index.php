@@ -10,17 +10,15 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous"></script>
-<script src="/template/js/index.js"></script>
 <!-- Container -->
 <div class="container pt-1">
     <!-- Row -->
     <div class="row">
         <!-- header -->
         <div class="col-6">
-            <h2>View payroll data</h2>
+            <a href="/" class="text-dark">
+                <h2>View payroll data</h2>
+            </a>
         </div>
         <div class="col-2">
             <a href="/add" class="btn btn-outline-primary float-right">Add</a>
@@ -34,10 +32,10 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Full Name</th>
+                <th><a href="#" class="text-dark text-shadow" onclick="sortTable('main-table', 1)">Full Name</a></th>
                 <th>Department</th>
-                <th>Amount of created products</th>
-                <th><!--<a href="#" onclick="sortTable()">-->Salary<!--</a>--></th>
+                <th><a href="#" class="text-dark text-shadow" onclick="sortTable('main-table', 3)">Amount of created products</a></th>
+                <th><a href="#" class="text-dark text-shadow" onclick="sortTable('main-table', 4)">Salary</a></th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -51,7 +49,7 @@
                     <td><?=$singleRecord['salary'];?></td>
                     <td>
                         <a href="/edit/<?=$singleRecord['id'];?>" id="edit-row">Edit</a>
-                        <!--<a href="#" id="delete-row">Delete</a>-->
+                        <a href="#" id="delete-row" data-id="<?=$singleRecord['id'];?>">Delete</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -62,5 +60,9 @@
     <!-- End of Row -->
 </div>
 <!-- End of Container -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+<script src="/app/js/index.js"></script>
 </body>
 </html>

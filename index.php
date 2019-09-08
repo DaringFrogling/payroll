@@ -11,8 +11,6 @@
     require_once (ROOT . '/components/Router.php');
     require_once (ROOT . '/components/Db.php');
 
-    // Database
-
     // Router call
     $router = new Router();
     $router->run();
