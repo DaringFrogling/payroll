@@ -1,1 +1,1 @@
-Just my pet project where i am learning how to code in php.
+Just the test project where i am showing some of my coding skills.
